@@ -1,32 +1,19 @@
 const fs = require("fs");
-const N = parseInt(fs.readFileSync("/dev/stdin", "utf-8").trim());
+const input = fs.readFileSync("/dev/stdin", "utf-8").trim().split("\n");
 
-let process = [];
-let cnt = 0;
-function hanoi(n, from, via, to) {
-    if (n == 1) {
-        move(1, from, to);
-    } else {
-        hanoi(n - 1, from, to, via);
-        move(n, from, to);
-        hanoi(n - 1, via, from, to);
+const [N, M] = [...input[0].split(" ")];
+const cards = [...input[1].split(" ")];
+
+let sum_list = [];
+for (let i=0; i<N; i++) {
+    for (let j=i+1; j<N; j++) {
+        for (let k=j+1; k<N; k++) {
+            const a = parseInt(cards[i]);
+            const b = parseInt(cards[j]);
+            const c = parseInt(cards[k]);
+            
+            if (a+b+c <= M) sum_list.push(a+b+c);
+        }
     }
 }
-
-function move(n, from, to) {
-    process.push(`${from} ${to}`);
-    cnt++;
-}
-
-function solution(n) {
-    let result = "";
-    hanoi(n, 1, 2, 3);
-    
-    result += `${cnt}\n`;
-    for (let i=0; i<cnt; i++) {
-        result += `${process[i]}\n`;
-    }
-    return result;
-}
-
-console.log(solution(N));
+console.log(Math.max(...sum_list));
