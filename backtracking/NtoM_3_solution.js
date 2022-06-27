@@ -1,5 +1,5 @@
-//const [N, M] = require("fs").readFileSync("/dev/stdin", "utf-8").trim().split(" ").map(Number);
-const [N, M] = [4, 4];
+// const [N, M] = require("fs").readFileSync("/dev/stdin", "utf-8").trim().split(" ").map(Number);
+const [N, M] = [4, 2];
 
 function solution(n, m) {
     let answer = "";
@@ -13,11 +13,9 @@ function solution(n, m) {
         }
 
         for (let i=0; i<n; i++) {
-            if (result.indexOf(i+1) === -1) {
-                result.push(i+1);
-                dfs();
-                result.pop();
-            }
+            result.push(i+1);
+            dfs();
+            result.pop();
         }
     }
     return answer;
